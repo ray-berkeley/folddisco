@@ -82,7 +82,7 @@ pub fn tm_score(distances: &PrecomputedDistances, d0: Option<f32>) -> f32 {
     
     let sum: f64 = (0..distances.n)
         .map(|i| {
-            let d_sq = distances.get_distance(i, i) as f64;
+            let d_sq = (distances.get_distance(i, i) as f64).powi(2);
             1.0 / (1.0 + d_sq / d0_sq)
         })
         .sum();
@@ -103,7 +103,7 @@ fn gdt_generic(distances: &PrecomputedDistances, cutoffs: &[f64]) -> f32 {
         let cutoff_sq = cutoff * cutoff;
         let count = (0..distances.n)
             .filter(|&i| {
-                let d_sq = distances.get_distance(i, i) as f64;
+                let d_sq = (distances.get_distance(i, i) as f64).powi(2);
                 d_sq <= cutoff_sq
             })
             .count();
